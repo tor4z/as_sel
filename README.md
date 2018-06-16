@@ -53,6 +53,14 @@
 
 ### Flags
 
+The flags is divided into three groups base on function:
+
+* Status flags
+* Control flags
+* System flags
+
+#### Status flags
+
 |Flag|  Bit|  Name |
 |:----:|:-----:|:------:|
 |CF|  0|  Carry flag |
@@ -76,5 +84,55 @@ stack.
 * Real-address mode: Memory locations in segments are defined by logical addresses. A logical address consists of a segment
 address and an offset address. The processor translates a logical address to a corresponding linear
 address location to access the byte of memory.
+
+
+### .string vs .ascii vs .asciz
+
+* .ascii "string"...
+
+.ascii expects zero or more string literals separated by commas. It assembles each string (with no automatic trailing zero byte) into consecutive addresses.
+
+* .asciz "string"...
+
+.asciz is just like .ascii, but each string is followed by a zero byte. The "z" in `.asciz' stands for "zero".
+
+* .string "str"
+
+Copy the characters in str to the object file. You may specify more than one string to copy, separated by commas.
+Unless otherwise specified for a pafffrticular machine, the assembler marks the end of each string with a 0 byte.
+You can use any of the escape sequences described in section Strings.
+
+[See more](http://web.mit.edu/gnu/doc/html/as_7.html)
+
+### Instruction names
+
+Instruction names usually end in either "l", "w", or "b", indicating the size of the operands: long (32 bits), word (16 bits), or byte (8 bits),
+respectively. For our purposes, we will usually be using the "l" (long) suffix. [See more](http://www.hep.wisc.edu/~pinghc/x86AssmTutorial.htm)
+
+### The directive used to reserve memory for specific type of data element
+
+|Directive| 	Data Type|
+|:--------|:-----------------------|
+|.ascii |	Text string |
+|.asciz 	Null-terminated text string |
+|.byte| 	Byte value |
+|.double| 	Double-precision floating-point number |
+|.float| 	Single-precision floating-point number |
+|.int| 	 	32-bit integer number |
+|.long| 	32-bit integer number (same as .int) |
+|.octa| 	16-byte integer number |
+|.quad| 	8-byte integer number |
+|.short| 	16-bit integer number |
+|.single| 	Single-precision floating-point number (same as .float) |
+|.fill|		Enable assembly to automatically create specific byte of data element for you|
+
+
+### The directive to declare buffer in .bss section
+
+|Directive|  Description |
+|:--------|:-------------|
+|.comm|   Declares a common memory area for data that is not initialized |
+|.lcomm|  Declares a local common memory area for data that is not initialized |
+
 
 

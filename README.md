@@ -114,7 +114,7 @@ respectively. For our purposes, we will usually be using the "l" (long) suffix. 
 |Directive| 	Data Type|
 |:--------|:-----------------------|
 |.ascii |	Text string |
-|.asciz 	Null-terminated text string |
+|.asciz| 	Null-terminated text string |
 |.byte| 	Byte value |
 |.double| 	Double-precision floating-point number |
 |.float| 	Single-precision floating-point number |

@@ -127,6 +127,16 @@ You can use any of the escape sequences described in section Strings.
 
 Instruction names usually end in either "l", "w", or "b", indicating the size of the operands: long (32 bits), word (16 bits), or byte (8 bits),
 respectively. For our purposes, we will usually be using the "l" (long) suffix. [See more](http://www.hep.wisc.edu/~pinghc/x86AssmTutorial.htm)
+```
+b = byte (8 bit)
+s = short (16 bit integer) or single (32-bit floating point)
+w = word (16 bit)
+l = long (32 bit integer or 64-bit floating point)
+q = quad (64 bit)
+t = ten bytes (80-bit floating point)
+```
+[See also](https://stackoverflow.com/questions/48251829/whats-the-difference-between-push-and-pushq-in-att-assembly)
+
 
 ### The directive used to reserve memory for specific type of data element
 
@@ -155,3 +165,55 @@ respectively. For our purposes, we will usually be using the "l" (long) suffix. 
 
 
 
+### The unsigned conditional move instruction
+
+|Instruction Pair| 	Description| 	EFLAGS Condition |
+|:---------------|:-----------------|:---------------------|
+|CMOVA/CMOVNBE| 	Above/not below or equal| 	(CF or ZF) = 0 |
+|CMOVAE/CMOVNB| 	Above or equal/not below| 	CF=0 |
+|CMOVNC| 		Not carry| 	   		CF=0 |
+|CMOVB/CMOVNAE| 	Below/not above or equal| 	CF=1 |
+|CMOVC| 		Carry| 	  	   		CF=1 |
+|CMOVBE/CMOVNA| 	Below or equal/not above| 	(CF or ZF) = 1 |
+|CMOVE/CMOVZ| 		Equal/zero| 	   		ZF=1 |
+|CMOVNE/CMOVNZ| 	Not equal/not zero| 		ZF=0 |
+|CMOVP/CMOVPE|		Parity/parity even| 		PF=1 |
+|CMOVNP/CMOVPO| 	Not parity/parity odd| 		PF=0 |
+
+
+### The signed conditional move instruction
+
+|Instruction Pair| 	Description| 	EFLAGS Condition |
+|:---------------|:-----------------|:---------------------|
+|CMOVGE/CMOVNL| 	Greater or equal/not less| 	(SF xor OF)=0 |
+|CMOVL/CMOVNGE| 	Less/not greater or equal| 	(SF xor OF)=1 |
+|CMOVLE/CMOVNG| 	Less or equal/not greater| 	((SF xor OF) or ZF)=1 |
+|CMOVO| 		Overflow| 	  		OF=1 |
+|CMOVNO|		Not overflow| 			OF=0 |
+|CMOVS| 		Sign (negative)| 		SF=1 |
+|CMOVNS| 		Not sign (non-negative)| 	SF=0 |
+
+### CMP & EFLAFGS
+
+The CMP Instruction:
+
+The CMP instruction operates by performing an implied subtraction of the two operands. This means that the result is not stored in memory. After subtracting them, it does a few quick tests, updating the Z,O,C,S, and P flags. The P, or parity, flag is rarely used, so we&#39;ll ignore it in this article for the purpose of brevity.
+
+Binary subtraction is performed by adding the negated version of the second operand from the first. This is just like what you learned in middle school, about how 4+3 = 4 - (-3), and visa versa.
+At the end of the article I will explain how this is done, but I&#39;ll move onto the more important matters for now since that knowledge is not really needed for cracking or coding.
+
+Sign and Zero Flag:
+
+The four flags that the CMP instruction can set - Z,O,C, and S, are known as the zero, overflow, carry, and sign flags respectively. The zero flag is set whenever the result of the subtraction is equal to zero. This, of course, only occurs when the operands are equal. The sign flag is set when the result of the subtraction is negative. Although we are inclined to think that this means the sign flag in combination with the zero flag are enough to test all &gt; &gt;= &lt; and &lt;=, this is not true, because the result can be negative even if the first number is greater than the second. This is because of overflow.
+
+Overflow Flag:
+
+Signed integers are represented in binary with the same amount of bits as unsigned integers. This means, of course, that the sign must be set in one of the bits of the integer. Signed integers store the sign in the MSB (most significant bit). This means that, while 00000001 converts to 1 in decimal, 10000001 converts to -127. I will discuss why it is -127 and not -1 or -2 later in the article.
+When the processor performs subtraction, It wraps around if the subtraction goes below 00000000 or above 11111111. Therefore, if you subtract a negative number from a positive one, or subtract a positive number from a negative one, there is the possibility that the answer will overflow over the boundary. For example, 100 - (-100) is equal to 200, but the highest value an 8 bit signed integer can be is 127, so 200 will wrap through the upper boundary and end up as a negative number, even though it should be positive. The same problem occurs with -100 - 100; It wraps through the low end and ends up positive when it should be negative, causing an underflow. Note that an underflow also sets the overflow flag, and overflow will refer to both overflows and underflows further in the article. The CPU checks for this, and sets the overflow flag if it occurs.
+
+Carry Flag:
+
+The carry flag is set when, if both operands are interpreted as unsigned integers, the first one is greater. This is easy to determine because it occurs whenever the subtraction passes through 00000000 into the higher range (11111111).
+For example, 00000001 - 00000010 = 11111111, so carry is set. However, 00000010 - 00000001 = 00000001, so carry is not set.
+
+[See also](https://www.hellboundhackers.org/articles/read-article.php?article_id=729)

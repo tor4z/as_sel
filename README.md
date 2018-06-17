@@ -14,7 +14,7 @@ Link 32-bit object file with ld in 64-bit platform
 ```bash
 # gcc-multilib needed
 # sudo apt-get install gcc-multilib
-ld -dynamic-linker /lib/ld-linux.oso.2 -o outout object.o -m elf_i386 -lc  # Used libc
+ld -dynamic-linker /lib/ld-linux.so.2 -o outout object.o -m elf_i386 -lc  # Used libc
 ```
 Compile assembly source with gcc
 ```

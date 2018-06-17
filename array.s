@@ -21,14 +21,14 @@ loop:
 	*/
 	pushl %eax
 	pushl $output
-	call printf	// call printf in libc
+	call printf	# call printf in libc
 
-	addl $8, %esp	// Clean stack, we have push two 4-bytes data into the stack before
-	inc %edi	// Move the pointer to the next position
-	cmpl $11, %edi	// Compare %edi with 11, to check the current index of the array
-	jne loop	// If %edi less then(not equal) to 11, then goto loop
-			// Else goto the next instruction
-	movl $0, %ebx	// Set the exit code to 0
-	movl $1, %eax	// exit sys_call
-	int $0x80	// call kernel
+	addl $8, %esp	# Clean stack, we have push two 4-bytes data into the stack before
+	inc %edi	# Move the pointer to the next position
+	cmpl $11, %edi	# Compare %edi with 11, to check the current index of the array
+	jne loop	# If %edi less then(not equal) to 11, then goto loop
+			# Else goto the next instruction
+	movl $0, %ebx	# Set the exit code to 0
+	movl $1, %eax	# exit sys_call
+	int $0x80	# call kernel
 	

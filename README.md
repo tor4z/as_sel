@@ -16,7 +16,10 @@ Link 32-bit object file with ld in 64-bit platform
 # sudo apt-get install gcc-multilib
 ld -dynamic-linker /lib/ld-linux.oso.2 -o outout object.o -m elf_i386 -lc  # Used libc
 ```
-
+Compile assembly with gcc
+```
+gcc -o output source.s -m32	# compile 32-bit elf in 64-bit platform
+```
 
 ### Registers
 

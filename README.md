@@ -217,3 +217,17 @@ The carry flag is set when, if both operands are interpreted as unsigned integer
 For example, 00000001 - 00000010 = 11111111, so carry is set. However, 00000010 - 00000001 = 00000001, so carry is not set.
 
 [See also](https://www.hellboundhackers.org/articles/read-article.php?article_id=729)
+
+### POPing and PUSHing all the register
+
+|Instruction|  Description |
+|:----------|:-------------|
+|PUSHA/POPA|  Push or pop all of the 16-bit general-purpose registers |
+|PUSHAD/POPAD|  Push or pop all of the 32-bit general-purpose registers |
+|PUSHF/POPF|  Push or pop the lower 16 bits of the EFLAGS register |
+|PUSHFD/POPFD|  Push or pop the entire 32 bits of the EFLAGS register |
+
+The PUSHA instruction pushes the 16-bit registers so they appear
+on the stack in the following order: DI, SI, BP, BX, DX, CX, and finally, AX. The PUSHAD instruction pushes
+the 32-bit counterparts of these registers in the same order. The POPA and POPAD instructions retrieve the
+registers in the reverse order they were pushed.

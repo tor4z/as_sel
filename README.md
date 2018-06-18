@@ -300,3 +300,42 @@ the location pointing to the calling memory location.
 |JPO| 	Jump if parity odd| 	PF=0 |
 |JS| 	Jump if sign| 	SF=1 |
 |JZ| 	Jump if zero| 	ZF=1 |
+
+### When to set carry flag
+
+* The carry flag is used in mathematical expressions to indicate when an overflow has occurred in an
+unsigned number (remember that signed numbers use the overflow flag). The carry flag is set when an
+instruction causes a register to go beyond its data size limit.
+
+* The carry flag will also be set when an unsigned value is less than zero.
+
+|Instruction| 	Description |
+|:----------|:--------------|
+|CLC| 	Clear the carry flag (set it to zero) |
+|CMC| 	Complement the carry flag (change it to the opposite of what is set) |
+|STC| 	Set the carry flag (set it to one) |
+
+
+### The loop instruction
+
+The loop instructions use the ECX register as a counter and automatically decrease its value as the loop
+instruction is executed.
+
+|Instruction| 	Description |
+|:---------|:---------------|
+|LOOP|			Loop until the ECX register is zero |
+|LOOPE/LOOPZ| 		Loop until either the ECX register is zero, or the ZF flag is not set |
+|LOOPNE/LOOPNZ| 	Loop until either the ECX register is zero, or the ZF flag is set |
+
+Before the loop starts, you must set the value for the number of iterations to perform in the ECX register.
+This usually looks something like the following:
+```
+	< code before the loop >
+	movl $100, %ecx
+loop1:
+	< code to loop through >
+	loop loop1
+	< code after the loop >
+```
+An added benefit of the loop instructions is that they decrease the value of the ECX register without
+affecting the EFLAGS register flag bits. When the ECX register reaches zero, the Zero flag is not set.

@@ -339,3 +339,55 @@ loop1:
 ```
 An added benefit of the loop instructions is that they decrease the value of the ECX register without
 affecting the EFLAGS register flag bits. When the ECX register reaches zero, the Zero flag is not set.
+
+If the value of ECX is already zero before the
+LOOP instruction, it will be decreased by one, making it -1. Because this value is not zero, the LOOP
+instruction continues on its way, looping back to the defined label. The loop will eventually exit when
+the register overflows, and the incorrect value is displayed.
+
+### Hight-Level Conditional Branches and Assembly Branches
+
+The assembly language code used to implement an if statement looks like the following:
+```
+if:
+	<condition to evaluate>
+	jxx else
+	 ; jump to the else part if the condition is false
+	 <code to implement the “then” statements>
+	 jmp end
+	  ;jump to the end
+else:
+	< code to implement the “else” statements>
+end:
+```
+
+`if(eax < ebx) || (eax == ecx) then ` creates the following assembly language code:
+```
+if:
+	cmpl %eax, %ebx
+	jle else
+	cmpl %eax, %ecx
+	jne else
+then:
+	< then logic code>
+	jmp end
+else:
+	< else logic code >
+end:
+```
+
+The framework for implementing for loops in assembly language. The
+pseudocode looks something like this:
+```
+for:
+	<condition to evaluate for loop counter value>
+	jxx forcode
+	; jump to the code of the condition is true
+	jmp end
+	; jump to the end if the condition is false
+forcode:
+	< for loop code to execute>
+	<increment for loop counter>
+	jmp for	   ; Go back to the start of the for-statement
+end:
+```

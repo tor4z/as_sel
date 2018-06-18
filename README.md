@@ -391,3 +391,19 @@ forcode:
 	jmp for	   ; Go back to the start of the for-statement
 end:
 ```
+
+### Optimizing Branch Instructions
+
+#### Branch branches
+
+* Unconditional branches, When the new instruction location is determined in memory, the out-of-order engine must first deter-
+mine if the instruction is available in the prefetch cache. If not, the entire prefetch cache must be cleared,
+and reloaded with instructions from the new location. This can be costly to the performance of the
+application.
+
+* Conditional branches, Three main rules are implemented by the branch prediction algorithms:
+
+> Backward branches are assumed to be taken.
+> Forward branches are assumed to be not taken.
+> Branches that have been previously taken are taken again.
+

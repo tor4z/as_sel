@@ -407,3 +407,28 @@ application.
 2, Forward branches are assumed to be not taken.
 3, Branches that have been previously taken are taken again.
 
+```
+loop:     <-------+
+	|         |
+	|         |
+	|	  | -- more likely backward loop
+	|         |
+	jnz loop -+
+	|
+	|
+	| --- less likely fall-throught code
+	|
+	jmp end -------------------+
+	|			   |
+	|			   |
+	| -- more likely           |
+	|    fall-throught         | -- less likely forward jump
+	|    code                  |
+	|        	     	   |
+	|        		   |
+end:      <------------------------+  
+	|
+	|
+	|
+		
+```

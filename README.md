@@ -231,3 +231,72 @@ The PUSHA instruction pushes the 16-bit registers so they appear
 on the stack in the following order: DI, SI, BP, BX, DX, CX, and finally, AX. The PUSHAD instruction pushes
 the 32-bit counterparts of these registers in the same order. The POPA and POPAD instructions retrieve the
 registers in the reverse order they were pushed.
+
+### Intel suggests the rules when defining data
+
+* Align 16-bit data on a 16-byte boundary. 
+* Align 32-bit data so that its base address is a multiple of four. 
+* Align 64-bit data so that its base address is a multiple of eight. 
+* Avoid many small data transfers. Instead, use a single large data transfer. 
+* Avoid using larger data sizes (such as 80- and 128-bit floating-point values) in the stack. 
+
+ If you have a lot of similarly sized data elements, such as
+integer and floating-point values, place them together at the beginning of the data section. This ensures
+that they will maintain the proper alignment. If you have a lot of odd-sized data elements, such as
+strings and buffers, place those at the end of the data section so they won’t throw off the alignment of
+the other data elements.
+
+The gas assembler supports the .align directive, which is used to align defined data elements on spe-
+cific memory boundaries. The .align directive is placed immediately before the data definition in the
+data section, instructing the assembler to position the data element on a memory boundary.
+
+### Stack in function
+```
+function_label:
+	pushl %ebp
+	movl %esp, %ebp
+	< normal function code goes here>
+	movl %ebp, %esp
+	popl %ebp
+	ret
+```
+Once the EBP register has been saved, it can be used as the base pointer to the stack for all access to the
+stack within the function. Before returning to the calling program, the ESP register must be restored to
+the location pointing to the calling memory location.
+
+### Conditional jump instruction
+
+|Instruction| 	Description| 	EFLAGS |
+|:----------|:------------|:------------|
+|JA| 	Jump if above| 	CF=0 and ZF=0 |
+|JAE| 	Jump if above or equal| 	CF=0 |
+|JB| 	Jump if below| 	CF=1 |
+|JBE| 	Jump if below or equal| 	CF=1 or ZF=1 |
+|JC| 	Jump if carry| 	CF=1 |
+|JCXZ| 	Jump if CX register is 0| 	|
+|JECXZ| 	Jump if ECX register is 0| 	|
+|JE| 	Jump if equal| 	ZF=1 |
+|JG| 	Jump if greater| 	ZF=0 and SF=OF |
+|JGE| 	Jump if greater or equal| 	SF=OF |
+|JL| 	Jump if less| 	SF<>OF |
+|JLE| 	Jump if less or equal| 	ZF=1 or SF<>OF |
+|JNA| 	Jump if not above| 	CF=1 or ZF=1 |
+|JNAE| 	Jump if not above or equal| 	CF=1 |
+|JNB| 	Jump if not below| 	CF=0 |
+|JNBE| 	Jump if not below or equal| 	CF=0 and ZF=0 |
+|JNC| 	Jump if not carry| 	CF=0 |
+|JNE| 	Jump if not equal| 	ZF=0 |
+|JNG| 	Jump if not greater| 	ZF=1 or SF<>OF |
+|JNGE| 	Jump if not greater or equal| 	SF<>OF |
+|JNL| 	Jump if not less| 	SF=OF |
+|JNLE| 	Jump if not less or equal| 	ZF=0 and SF=OF |
+|JNO| 	Jump if not overflow| 	OF=0 |
+|JNP| 	Jump if not parity| 	PF=0 |
+|JNS| 	Jump if not sign| 	SF=0 |
+|JNZ| 	Jump if not zero| 	ZF=0 |
+|JO| 	Jump if overflow| 	OF=1 |
+|JP| 	Jump if parity| 	PF=1 |
+|JPE| 	Jump if parity even| 	PF=1 |
+|JPO| 	Jump if parity odd| 	PF=0 |
+|JS| 	Jump if sign| 	SF=1 |
+|JZ| 	Jump if zero| 	ZF=1 |

@@ -352,10 +352,10 @@ The assembly language code used to implement an if statement looks like the foll
 if:
 	<condition to evaluate>
 	jxx else
-	 ; jump to the else part if the condition is false
-	 <code to implement the “then” statements>
-	 jmp end
-	  ;jump to the end
+	; jump to the else part if the condition is false
+	<code to implement the “then” statements>
+	jmp end
+	;jump to the end
 else:
 	< code to implement the “else” statements>
 end:

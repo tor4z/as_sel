@@ -403,7 +403,7 @@ application.
 
 * Conditional branches, Three main rules are implemented by the branch prediction algorithms:
 
-.. 1, Backward branches are assumed to be taken.
-.. 2, Forward branches are assumed to be not taken.
-.. 3, Branches that have been previously taken are taken again.
+1, Backward branches are assumed to be taken.
+2, Forward branches are assumed to be not taken.
+3, Branches that have been previously taken are taken again.
 

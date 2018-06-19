@@ -433,3 +433,40 @@ end:      <------------------------+
 	|
 		
 ```
+
+### Numeric Data Types
+
+1. Basic numeric data types:
+
+* Unsigned integers
+* Signed integers
+* Binary-coded decimal
+* Packed binary-coded decimal
+* Single-precision floating-point
+* Double-precision floating-point
+* Double-extended floating-point
+
+2. Advanced numeric data types(SIMD extensions on Pentium processors):
+
+* 64-bit packed integers
+* 128-bit packed integers
+* 128-bit packed single-precision floating-point
+* 128-bit packed double-precision floating-point
+
+### Extending integers
+
+1. Extending unsigned integers
+```
+movzx source destination
+```
+
+2. Extending signed integer
+```
+movsx source destination
+```
+
+### Define 8-bytes integer
+```
+label:
+	.qual -333252322
+```

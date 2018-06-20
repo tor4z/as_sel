@@ -475,9 +475,9 @@ label:
 
 |Data Type|  Length|  Significand Bits|  Exponent Bits|  Range |
 |:--------|:-------|:-----------------|:--------------|:-------|
-|Single precision| 32| 24| 8 1.18 x 10^-38 to 3.40 x 10^38 |
-|Double precision| 64| 53| 11 2.23 x 10^-308 to 1.79 x 10^308 |
-|Double extended| 80| 64| 15 3.37 x 10^-4932 to 1.18 x 10^4932 |
+|Single precision| 32| 24| 8| 1.18 x 10^-38 to 3.40 x 10^38 |
+|Double precision| 64| 53| 11| 2.23 x 10^-308 to 1.79 x 10^308 |
+|Double extended| 80| 64| 15| 3.37 x 10^-4932 to 1.18 x 10^4932 |
 
 
 ### Preset floating-point value

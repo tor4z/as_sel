@@ -221,6 +221,9 @@ For example, 00000001 - 00000010 = 11111111, so carry is set. However, 00000010 
 
 For unsigned integers, the carry flag is set when an addition results in a carry condition in the binary addition (the result is larger than the maximum value allowed).
 
+In substraction, The carry flag was set when the result was less than zero (which is invalid in unsigned integers).
+
+
 [See also](https://www.hellboundhackers.org/articles/read-article.php?article_id=729)
 
 

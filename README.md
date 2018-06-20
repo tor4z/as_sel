@@ -478,3 +478,16 @@ label:
 |Single precision| 32| 24| 8 1.18 x 10^-38 to 3.40 x 10^38 |
 |Double precision| 64| 53| 11 2.23 x 10^-308 to 1.79 x 10^308 |
 |Double extended| 80| 64| 15 3.37 x 10^-4932 to 1.18 x 10^4932 |
+
+
+### Preset floating-point value
+
+|Instruction| 	Description |
+|:----------|:--------------|
+|FLD1|		Push +1.0 into the FPU stack |
+|FLDL2T| 	Push log(base 2) 10 onto the FPU stack |
+|FLDL2E| 	Push log(base 2) e onto the FPU stack |
+|FLDPI| 	Push the value of pi onto the FPU stack |
+|FLDLG2| 	Push log(base 10) 2 onto the FPU stack |
+|FLDLN2| 	Push log(base e) 2 onto the FPU stack |
+|FLDZ| 		Push +0.0 onto the FPU stack |

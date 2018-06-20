@@ -500,3 +500,55 @@ label:
 |FLDLG2| 	Push log(base 10) 2 onto the FPU stack |
 |FLDLN2| 	Push log(base e) 2 onto the FPU stack |
 |FLDZ| 		Push +0.0 onto the FPU stack |
+
+
+### Incrementing and Decrementing
+
+The INC and DEC instructions are used to increment (INC) and decrement (DEC) an unsigned integer
+value. The INC and DEC instructions don’t affect the carry flag.
+
+
+### Unsigned integer multiplication using MUL
+```
+mul source
+```
+
+|Source Operand Size|  Destination Operand|  Destination Location |
+|:------------------|:--------------------|:----------------------|
+|8 bits|	AL|	AX |
+|16 bits|  	AX|  	DX:AX |
+|32 bits|  	EAX|  	EDX:EAX |
+
+
+### Signed integer multiplication using IMUL
+
+The first format of the IMUL instruction takes one operand, and behaves exactly the same as the MUL instruction:
+```
+imul source
+```
+The source operand can be an 8-, 16-, or 32-bit register or value in memory, and it is multiplied with the
+implied operand located in the AL, AX, or EAX registers (depending on the source operand size). The
+result is then placed in the AX register, the DX:AX register pair, or the EDX:EAX register pair.
+
+
+The second format of the IMUL instruction enables you to specify a destination operand other than the EAX register:
+```
+imul source, destination
+```
+where source can be a 16- or 32-bit register or value in memory, and destination must be a 16- or
+32-bit general-purpose register. This format enables you to specify where the result of the multiplication
+will go (instead of being forced to use the AX and DX registers).**Extreme care must be taken when using
+this format that you do not overflow the destination register.  (check the carry or overflow flags using the
+standard methods after the multiplication to ensure that the result fits in the destination register).**
+
+
+The third format of the IMUL instruction enables you to specify three operands:
+```
+imul multiplier, source, destination
+```
+where multiplier is an immediate value, source is a 16- or 32-bit register or value in memory, and
+destination must be a general-purpose register. This format enables you to perform a quick multi-
+plication of a value (the source) with a signed integer (the multiplier), storing the result in a general-
+purpose register (the destination).
+
+

@@ -22,6 +22,7 @@ sum_loop:
 	inc %edi			# Shift to the next byte
 	loop sum_loop			# Loop
 
+	inc %edi
 	adcb $0, sum(, %edi, 1)		# Add 0 with crray and the low 1 byte, and store to the memory location of sum + EDI
 
 	# Exit

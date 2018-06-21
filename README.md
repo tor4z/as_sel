@@ -552,3 +552,94 @@ plication of a value (the source) with a signed integer (the multiplier), storin
 purpose register (the destination).
 
 
+### Unsigned divion
+
+```
+div divisor
+```
+where divisor is the value that is divided into the implied dividend, and can be an 8-, 16-, or 32-bit reg-
+ister or value in memory.
+
+|Dividend|  Dividend Size|  Quotient|  Remainder |
+|:-------|:--------------|:---------|:-----------|
+|AX|  16 bits|  AL|  AH |
+|DX:AX|  32 bits|  AX|  DX |
+|EDX:EAX|  64 bits|  EAX|  EDX |
+
+
+### Signed divisor
+
+Unlike the IMUL instruction, there is only one format for the IDIV instruction, which specifies the divisor
+used in the division:
+```
+idiv divisor
+```
+where divisor can again be an 8-, 16-, or 32-bit register or value in memory.
+The IDIV instruction returns the results using the same registers as the DIV instruction, and in the same
+format of quotient and remainder (except that the results are signed integers).
+**It is important to use the sign extension instructions (such as MOVSX) to extend the dividend
+to the proper data size for the division. Failure to do so will corrupt the dividend value and produce
+errors in your results.**
+
+
+### Shift Instruction
+
+To multiply integers by a power of 2, you must shift the value to the left. Two instructions can be used to
+left shift integer values, SAL (shift arithmetic left) and SHL (shift logical left). Both of these instructions
+perform the same operation, and are interchangeable. They have three different formats:
+```
+sal destination
+sal %cl, destination
+sal shifter, destination
+```
+The first format shifts the destination value left one position, which is the equivalent of multiplying
+the value by 2.
+
+The second format shifts the destination value left by the number of times specified in the CL register.
+
+The final version shifts the destination value left the number of times indicated by the shifter value.
+In all formats, the destination operand can be an 8-, 16-, or 32-bit register or value in memory.
+
+** Any bits that are shifted out of the data size are first placed in the carry
+flag, and then dropped in the next shift.**
+
+
+The SHR instruction clears the bits emptied by the shift, which makes it useful only for shifting unsigned
+integers. The SAR instruction either clears or sets the bits emptied by the shift, depending on the sign
+bit of the integer. For negative numbers, the bits are set to 1, but for positive numbers, they are cleared to zero.
+
+**Any bits shifted out of the data element (the least significant bits) are first moved to the carry flag, and then
+shifted out (lost).**
+
+
+### Unpacked BCD arithmetic
+
+Four instructions are used to convert binary arithmetic results to unpacked BCD format:
+
+* AAA: Adjusts the result of an addition process
+* AAS: Adjusts the result of a subtraction process
+* AAM: Adjusts the result of a multiplication process
+* AAD: Prepares the dividend of a division process
+
+These instructions must be used in combination with the normal unsigned integer ADD, ADC, SUB, SBB,
+MUL, and DIV instructions. The AAA, AAS, and AAM instructions are used after their respective operation to
+convert a binary result into unpacked BCD format.**The AAD instruction is somewhat different in that it is
+used before the DIV instruction to prepare the dividend value to produce an unpacked BCD result.**
+
+
+### Packed BCD arithmetic
+When working with packed BCD values, only two instructions are available for use:
+
+* DAA: Adjusts the result of the ADD or ADC instructions
+* DAS: Adjusts the result of the SUB or SBB instructions
+ 
+These instructions perform the same functions as the AAA and AAS instructions, but with packed BCD
+values. They also use the implied operand located in the AL register, and place the result of the conver-
+sion in the AL register, with the carry bit placed in the AH register and the auxiliary carry flag bit.
+
+
+### Bit Testting
+
+The IA-32 platform provides the TEST instruction. The TEST instruction performs
+a bit-wise logical AND between two 8-, 16-, or 32-bit values, and sets the sign, zero, and parity flags
+accordingly, without modifying the destination value.

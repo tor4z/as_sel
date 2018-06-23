@@ -1,4 +1,4 @@
-# IA32 Assembly SEL
+1;5201;0c IA32 Assembly SEL
 
 ## Quick note
 
@@ -643,3 +643,14 @@ sion in the AL register, with the carry bit placed in the AH register and the au
 The IA-32 platform provides the TEST instruction. The TEST instruction performs
 a bit-wise logical AND between two 8-, 16-, or 32-bit values, and sets the sign, zero, and parity flags
 accordingly, without modifying the destination value.
+
+
+### Floating-point Math
+|Instructioin| Description|
+|:-----------|:------------|
+|FADD|		Floating-point addition |
+|FDIV| 		Floating-point division |
+|FDIVR| 	Reverse floating-point division |
+|FMUL| 		Floating-point multiplication |
+|FSUB| 		Floating-point subtraction |
+|FSUBR| 	Reverse floating-point subtraction |

@@ -646,6 +646,7 @@ accordingly, without modifying the destination value.
 
 
 ### Floating-point Math
+
 |Instructioin| Description|
 |:-----------|:------------|
 |FADD|		Floating-point addition |
@@ -665,3 +666,30 @@ instruction can be used as follows:
 * FADDP %st(0), %st(x): Add st(0) to st(x), store the result in st(x), and pop st(0)
 * FADDP: Add st(0) to st(1), store the result in st(1), and pop st(0)
 * FIADD source: Add a 16- or 32-bit integer value to st(0) and store the result in st(0)
+
+### The FCOM instruction family
+
+|Instruction| 	Description |
+|:----------|:--------------|
+|FCOM| 		Compare the ST0 register with the ST1 register. |
+|FCOM ST(x)| 	Compare the ST0 register with another FPU register. |
+|FCOM source| 	Compare the ST0 register with a 32- or 64-bit memory value. |
+|FCOMP| 	Compare the ST0 register with the ST1 register value and pop the stack. |
+|FCOMP ST(x)| 	Compare the ST0 register with another FPU register value and pop the stack. |
+|FCOMP source| 	Compare the ST0 register with a 32 or 64-bit memory value and pop the stack. |
+|FCOMPP| 	Compare the ST0 register with the ST1 register and pop the stack twice. |
+|FTST| 		Compare the ST0 register with the value 0.0. |
+
+
+|Condition|    C3|  C2|  C0 |
+|:--------|------|----|-----|
+|ST0 > source|  0|  0|  0 |
+|ST0 < source|  0|  0|  1 |
+|ST0 = source|  1|  0|  0 |
+
+
+Combining the FSTSW and SAHF instructions moves the following:
+
+* The C0 bit to the EFLAGS carry flag 
+* The C2 bit to the EFLAGS parity flag 
+* The C3 bit to the EFLAGS zero flag 

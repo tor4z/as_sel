@@ -654,3 +654,14 @@ accordingly, without modifying the destination value.
 |FMUL| 		Floating-point multiplication |
 |FSUB| 		Floating-point subtraction |
 |FSUBR| 	Reverse floating-point subtraction |
+
+Actually, each of these functions has separate instructions and formats that can be used to produce six
+possible functions, depending on exactly what operation you want to perform. For example, the FADD
+instruction can be used as follows:
+
+* FADD source: Add a 32- or 64-bit value from memory to the ST0 register
+* FADD %st(x), %st(0): Add st(x) to st(0) and store the result in st(0)
+* FADD %st(0), %st(x): Add st(0) to st(x) and store the result in st(x)
+* FADDP %st(0), %st(x): Add st(0) to st(x), store the result in st(x), and pop st(0)
+* FADDP: Add st(0) to st(1), store the result in st(1), and pop st(0)
+* FIADD source: Add a 16- or 32-bit integer value to st(0) and store the result in st(0)

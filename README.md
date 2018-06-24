@@ -693,3 +693,60 @@ Combining the FSTSW and SAHF instructions moves the following:
 * The C0 bit to the EFLAGS carry flag 
 * The C2 bit to the EFLAGS parity flag 
 * The C3 bit to the EFLAGS zero flag 
+
+### The FCOMI instruction family
+
+The FCOMI family of instructions performs the floating-point comparisons and places the results in the EFLAGS reg-
+isters using the carry, parity, and zero flags.
+
+|Instruction| 	Description|
+|:----------|:-----------|
+|FCOMI| 	Compare the ST0 register with the ST(x) register. |
+|FCOMIP| 	Compare the ST0 register with the ST(x) register and pop the stack. |
+|FUCOMI| 	Check for unordered values before the comparison. |
+|FUCOMIP| 	Check for unordered values before the comparison and pop the stack afterward. |
+
+The output of the FCOMI instructions uses the EFLAGS registers, as shown in the following table.
+
+|Condition|   ZF|  PF|  CF |
+|:--------|:----|:----|:-----|
+|ST0 > ST(x)|  0|  0|  0 |
+|ST0 < ST(x)|  0|  0|  1 |
+|ST0 = ST(x)|  1|  0|  0 |
+
+
+### The FCMOV Instruction Family
+
+|Instruction|  Description |
+|:----------|:-------------|
+|FCMOVB|  Move if ST(0) is below ST(x). |
+|FCMOVE|  Move if ST(0) is equal to ST(x). |
+|FCMOVBE|  Move if ST(0) is below or equal to ST(x). |
+|FCMOVU|  Move if ST(0) is unordered. |
+|FCMOVNB|  Move if ST(0) is not below ST(x). |
+|FCMOVNE|  Move it ST(0) is not equal to ST(x). |
+|FCMOVNBE|  Move if ST(0) is not below or equal to ST(x). |
+|FCMOVNU|  Move if ST(0) is not unordered. |
+
+The GNU format of the instructions is
+```
+fcmovxx source, destination
+```
+where source is the ST(x) register, and destination is the ST(0) register. 
+
+
+### Optimizing Floating-Point Calculations
+
+Intel has provided some simple tips to follow when coding floating-point programs:
+
+* Make sure the floating-point values do not overflow or underflow the data elements. 
+* Set the precision control bit for single precision. 
+* Use lookup tables for simple trig functions. 
+* Break dependence chains when possible. For example, instead of calculating z = a + b + c + d, 
+calculate x = a + b; y = c + d; z = x + y. 
+* Keep equation values in the FPU registers as much as possible. 
+* When working with integers and floating-point values, loading the integers into the FPU registers
+and performing a calculation is quicker than using a floating-point instruction with the integer.
+For example, instead of using FIDIV, use FILD to load the integer, and then the FDIVP 
+instruction on the values in the FPU registers. 
+* Use FCOMI instructions instead of FCOM instructions as much as possible. 

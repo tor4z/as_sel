@@ -776,3 +776,5 @@ again stored in the ESI and EDI registers. Each time the CMPS instruction is exe
 registers are incremented or decremented by the amount of the data size compared, depending on the DF
 flag setting.
 
+
+###  The REP family: REPE, REPNE, REPZ, and REPNZ

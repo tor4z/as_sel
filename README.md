@@ -763,3 +763,16 @@ of the zero flag (ZF). The following table describes the other REP instructions 
 |REPNE| 	Repeat while not equal |
 |REPNZ| 	Repeat while not zero |
 |REPZ| 		Repeat while zero |
+
+
+### The CMPS Instrction
+
+* CMPSB: Compares a byte value 
+* CMPSW: Compares a word (2 bytes) value 
+* CMPSL: Compares a doubleword (4 bytes) value 
+
+As with the other string instructions, the locations of the implied source and destination operands are
+again stored in the ESI and EDI registers. Each time the CMPS instruction is executed, the ESI and EDI
+registers are incremented or decremented by the amount of the data size compared, depending on the DF
+flag setting.
+

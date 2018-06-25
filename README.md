@@ -750,3 +750,16 @@ and performing a calculation is quicker than using a floating-point instruction 
 For example, instead of using FIDIV, use FILD to load the integer, and then the FDIVP 
 instruction on the values in the FPU registers. 
 * Use FCOMI instructions instead of FCOM instructions as much as possible. 
+
+
+### Other REP Instruction
+
+Besides monitoring the value of the ECX register, there are REP instructions that also monitor the status
+of the zero flag (ZF). The following table describes the other REP instructions that can be used.
+
+|Instruction| 	Description |
+|:----------|:--------------|
+|REPE| 		Repeat while equal |
+|REPNE| 	Repeat while not equal |
+|REPNZ| 	Repeat while not zero |
+|REPZ| 		Repeat while zero |

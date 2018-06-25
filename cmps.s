@@ -11,7 +11,7 @@ _start:
 	leal value1, %esi	# Set source address
 	leal value2, %edi	# Set destination address
 	cld			# Set DF flag to 0
-	cmpsl			# Compare the string in the ESI memory location and the string in EDI memory location
+	cmpsl			# Compare the string in the ESI memory location and the string in EDI memory location, in first 4 byte
 	je equal		# If the tow string are equal, jump to equal
 not_equal:
 	# Exit with 1

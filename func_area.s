@@ -29,7 +29,7 @@ area:
 	# The prologue of the function
 	pushl %ebp 
 	movl %esp, %ebp 
-	subl $4, %esp
+	subl $4, %esp		# Reserve space to store local value
 	
 	fldpi 			# Load PI to the FPU stack
 	filds 8(%ebp) 		# Load the argument to the FPU stack

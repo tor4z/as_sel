@@ -778,3 +778,71 @@ flag setting.
 
 
 ###  The REP family: REPE, REPNE, REPZ, and REPNZ
+
+
+### The C-Style Funtion
+
+* Passing Data value
+
+The C solution for passing input values to functions is to use the stack. The stack is accessible from the
+main program as well as from any functions used within the program.
+
+Likewise, the C style defines a common method for returning values to the main program, using the EAX
+register for 32-bit results (such as short integers), the EDX:EAX register pair for 64-bit integer values, and
+the FPU ST(0) register for floating-point values.
+
+
+* Function prologue and epilogue
+
+```
+function:
+	pushl %ebp
+	movl %esp, %ebp
+	.
+	.
+	movl %ebp, %esp
+     popl %ebp
+     ret
+
+```
+
+The ENTER and LEAVE instructions are specifically designed for setting up function prologues (the ENTER
+instruction) and epilogues (the LEAVE instruction). These can be used instead of creating the prologues
+by hand.
+
+* Defining local function data
+
+Now that the local variables are defined on the stack, they can easily be referenced using the EBP register.
+Assuming 4-byte data values, the first local variable would be accessed by referencing –4(%ebp),
+while the second local variable would be accessed by referencing –8(%ebp). at the start of the function
+code another line is addd to reserve a set amount of stack space for local variables by subtracting the
+value from the ESP register.
+
+```
+		    Program Stack
+		+-----------------------+
+		|			|
+		|			|  Indirect address
+		|			|
+		+-----------------------+
+		| Function paramater 3  |  16(%ebp)
+		+-----------------------+
+		| Function paramater 2  |  12(%ebp)
+		+-----------------------+
+		| Function paramater 1  |  8(%ebp)
+		+-----------------------+
+		|    Return Address     |  4(%ebp)
+		+-----------------------+
+		|    Old EBP Value      |  (%ebp)
+		+-----------------------+
+		|    Local variable 1   |  -4(%ebp)
+		+-----------------------+
+		|    Local variable 2   |  -8(%ebp)
+		+-----------------------+
+     ESP --->	|    Local variable 3   |  -12(%ebp)
+		+-----------------------+
+		|                       |
+		+-----------------------+
+		|			|
+		+-----------------------+
+```

@@ -846,3 +846,53 @@ value from the ESP register.
 		|			|
 		+-----------------------+
 ```
+
+### Using Command-Line Parameters
+```
+		Program Virtual Memory Area
+	+--------------------------------------+  0xbfffffff
+	|				       |
+	|		Stack Data             |
+	|				       |
+	|				       |
+	+--------------------------------------+
+	|				       |
+	|				       |
+	|				       |
+	|				       |
+	|				       |
+	|				       |
+	+--------------------------------------+
+	|				       |
+	|	Program Code and Data          |
+	|				       |
+	|				       |
+	+--------------------------------------+  0x8048000
+
+
+	            Program Stack
+	+--------------------------------------+
+	|				       |
+	|       Environment Variables          |
+	|      Command Line Parameters         |
+	|				       |
+	+--------------------------------------+
+	|				       |
+	|     Pointers to Environment          |
+	|  	     Varriables                |
+	|				       |
+	+--------------------------------------+
+	|              0x00000000              |
+	+--------------------------------------+
+	| Pointer to Command Line Parameters 3 |
+	+--------------------------------------+
+	| Pointer to Command Line Parameters 3 |
+	+--------------------------------------+
+	| Pointer to Command Line Parameters 3 |
+	+--------------------------------------+
+	|            Program Name              |
+	+--------------------------------------+
+ESP -->	|         Number of Parameters         |
+	+--------------------------------------+
+	
+```

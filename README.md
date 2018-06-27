@@ -886,9 +886,9 @@ value from the ESP register.
 	+--------------------------------------+
 	| Pointer to Command Line Parameters 3 |
 	+--------------------------------------+
-	| Pointer to Command Line Parameters 3 |
+	| Pointer to Command Line Parameters 2 |
 	+--------------------------------------+
-	| Pointer to Command Line Parameters 3 |
+	| Pointer to Command Line Parameters 1 |
 	+--------------------------------------+
 	|            Program Name              |
 	+--------------------------------------+

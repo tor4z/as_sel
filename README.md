@@ -1,4 +1,4 @@
-1;5201;0c IA32 Assembly SEL
+# IA32 Assembly SEL
 
 ## Quick note
 

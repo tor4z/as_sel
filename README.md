@@ -912,3 +912,8 @@ System calls that require more than six input parameters use a different method 
 to the system call. The EBX register is used to contain a pointer to the memory location of the input
 parameters, stored in sequential order. The system call uses the pointer to access the memory location to
 read the parameters.
+
+#### System call return value
+
+The return value from a system call is placed in the EAX register. It is your job to check the value in the
+EAX register, especially for failure conditions.

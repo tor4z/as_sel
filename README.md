@@ -896,3 +896,19 @@ ESP -->	|         Number of Parameters         |
 	+--------------------------------------+
 	
 ```
+
+
+### System call input value
+
+The order in which the system calls expect input values is as follows:
+
+* EBX (first parameter) 
+* ECX (second parameter) 
+* EDX (third parameter) 
+* ESI (fourth parameter) 
+* EDI (fifth parameter) 
+
+System calls that require more than six input parameters use a different method of passing the parameters
+to the system call. The EBX register is used to contain a pointer to the memory location of the input
+parameters, stored in sequential order. The system call uses the pointer to access the memory location to
+read the parameters.
